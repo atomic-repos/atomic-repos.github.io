@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Repos | Atomic Repos</title><link>https://atomicrepos.dev/repos/</link><atom:link href="https://atomicrepos.dev/repos/index.xml" rel="self" type="application/rss+xml"/><description>Repos</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>Repos</title><link>https://atomicrepos.dev/repos/</link></image><item><title>Hello, World!</title><link>https://atomicrepos.dev/repos/hello-world-java/</link><pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/hello-world-java/</guid><description>&lt;p>What would normally be in your &lt;code>README.md&lt;/code> would go here.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Repos | Atomic Repos</title><link>https://atomicrepos.dev/repos/</link><atom:link href="https://atomicrepos.dev/repos/index.xml" rel="self" type="application/rss+xml"/><description>Repos</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>Repos</title><link>https://atomicrepos.dev/repos/</link></image><item><title>Hello, World!</title><link>https://atomicrepos.dev/repos/hello-world-go/</link><pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/hello-world-go/</guid><description>&lt;p>What would normally be in your &lt;code>README.md&lt;/code> would go here.&lt;/p>
+&lt;pre>&lt;code class="language-go">package main
+import &amp;quot;fmt&amp;quot;
+func SayHello() string {
+return &amp;quot;Hello, World!&amp;quot;
+}
+func main() {
+fmt.Println(SayHello())
+}
+&lt;/code>&lt;/pre></description></item><item><title>Hello, World!</title><link>https://atomicrepos.dev/repos/hello-world-java/</link><pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/hello-world-java/</guid><description>&lt;p>What would normally be in your &lt;code>README.md&lt;/code> would go here.&lt;/p>
 &lt;pre>&lt;code class="language-java">package dev.atomicrepos.java.hello_world;
 public class Hello {
 public static void main(String[] args) {
