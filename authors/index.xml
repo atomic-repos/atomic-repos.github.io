@@ -5,7 +5,7 @@
     <link>https://atomicrepos.dev/authors/</link>
       <atom:link href="https://atomicrepos.dev/authors/index.xml" rel="self" type="application/rss+xml" />
     <description>Authors</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© 2022 Matt Stine</copyright>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
     <image>
       <url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url>
       <title>Authors</title>
