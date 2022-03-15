@@ -1,4 +1,176 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kotlin | Atomic Repos</title><link>https://atomicrepos.dev/tag/kotlin/</link><atom:link href="https://atomicrepos.dev/tag/kotlin/index.xml" rel="self" type="application/rss+xml"/><description>kotlin</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>kotlin</title><link>https://atomicrepos.dev/tag/kotlin/</link></image><item><title>Hello, World!</title><link>https://atomicrepos.dev/repos/hello-world-kotlin/</link><pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/hello-world-kotlin/</guid><description>&lt;p>What would normally be in your &lt;code>README.md&lt;/code> would go here.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>kotlin | Atomic Repos</title><link>https://atomicrepos.dev/tag/kotlin/</link><atom:link href="https://atomicrepos.dev/tag/kotlin/index.xml" rel="self" type="application/rss+xml"/><description>kotlin</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 14 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>kotlin</title><link>https://atomicrepos.dev/tag/kotlin/</link></image><item><title>Map/Filter/Reduce Kotlin</title><link>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</link><pubDate>Mon, 14 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</guid><description>&lt;p>Today we&amp;rsquo;re going to look at how Kotin allows you to easily filter and aggregate a data set using
+higher-order functions like &lt;code>map&lt;/code>, &lt;code>filter&lt;/code>, and &lt;code>reduce&lt;/code>.&lt;/p>
+&lt;p>(&lt;em>While Kotlin does have a &lt;code>reduce&lt;/code> function, we&amp;rsquo;ll go ahead and use Kotlin&amp;rsquo;s &lt;code>average&lt;/code> function since we&amp;rsquo;re taking an average in this example.&lt;/em>)&lt;/p>
+&lt;p>This example was inspired by Exercise 40 from &lt;em>Exercises for Programmers: 57 Challenges to Develop Your Coding Skills.&lt;/em> by Brian P. Hogan.
+In that exercise, you&amp;rsquo;re provided with a dataset of employees.
+We&amp;rsquo;re going to whip up our own dataset inspired by the characters in everyone&amp;rsquo;s favorite 90&amp;rsquo;s cult
+office-themed movie, &lt;em>Office Space&lt;/em>.&lt;/p>
+&lt;p>We&amp;rsquo;ll be implementing the following &amp;ldquo;queries&amp;rdquo; on our &amp;ldquo;database&amp;rdquo;:&lt;/p>
+&lt;ul>
+&lt;li>Find all employees where their last name matches a search string.&lt;/li>
+&lt;li>Find all employees with a specific job title.&lt;/li>
+&lt;li>Find all employees that have been terminated since a specific date.&lt;/li>
+&lt;li>Get the average service time (in days) for all employees.&lt;/li>
+&lt;li>Get the average service time (in days) for all employees with a specific job title.&lt;/li>
+&lt;/ul>
+&lt;p>Higher-order functions are simply functions that can either accept other functions as arguments or return functions as values (or both!):&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>map&lt;/code> returns a new collection where each item is transformed by the function we provide.&lt;/li>
+&lt;li>&lt;code>filter&lt;/code> returns a new collection where each item is only retained if it matches the predicate function (a function that returns &lt;code>true&lt;/code> or &lt;code>false&lt;/code>) we provide.&lt;/li>
+&lt;li>&lt;code>reduce&lt;/code> returns a single value calculated by starting with the first item in the collection and applying the function we provide to each successive element, accumulating the &amp;ldquo;total&amp;rdquo; along the way. If we&amp;rsquo;d used &lt;code>reduce&lt;/code> instead of &lt;code>average&lt;/code>, we could have provided &lt;code>Long::plus&lt;/code> and then divided the return value by &lt;code>employees.count()&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;p>If you&amp;rsquo;d like to explore more of Kotlin&amp;rsquo;s higher-order collection functions, take a look at &lt;a href="https://kotlinlang.org/docs/collection-operations.html#common-operations" target="_blank" rel="noopener">Common Operations&lt;/a> in the Kotlin documentation.&lt;/p>
+&lt;hr>
+&lt;h2 id="code">Code&lt;/h2>
+&lt;pre>&lt;code class="language-kotlin">package dev.atomicrepos.kotlin.mfr
+import java.time.*
+import java.time.temporal.ChronoUnit
+data class Employee(
+val firstName: String,
+val lastName: String,
+val jobTitle: JobTitle,
+val startDate: LocalDate,
+val separationDate: LocalDate? = null
+)
+enum class JobTitle {
+MANAGER, SOFTWARE_ENGINEER, DISTRICT_MANAGER, DBA, WEB_DEVELOPER
+}
+fun findByLastNameLike(match: String) =
+employees.filter { it.lastName.contains(match) }
+fun findByPosition(match: JobTitle) =
+employees.filter { it.jobTitle == match }
+fun findTerminatedSince(match: LocalDate) =
+employees.filter { it.separationDate?.isAfter(match) ?: false }
+fun getAverageServiceTime() =
+employees
+.map(Employee::startDate)
+.map { it.until(dateOfTest, ChronoUnit.DAYS) }
+.average()
+fun getAverageServiceTimeByJobTitle(match: JobTitle) =
+employees.filter { it.jobTitle == match }
+.map(Employee::startDate)
+.map { it.until(dateOfTest, ChronoUnit.DAYS) }
+.average()
+/**
+* Fixed Date of March 15, 2022. Used for date-based math.
+*/
+val dateOfTest: LocalDate =
+LocalDate.ofInstant(
+Clock.fixed(
+Instant.parse(&amp;quot;2022-03-15T00:00:00.00Z&amp;quot;),
+ZoneId.of(&amp;quot;America/Chicago&amp;quot;)
+).instant(),
+ZoneId.of(&amp;quot;America/Chicago&amp;quot;)
+)
+val employees = listOf(
+Employee(
+firstName = &amp;quot;Matt&amp;quot;,
+lastName = &amp;quot;Stine&amp;quot;,
+jobTitle = JobTitle.SOFTWARE_ENGINEER,
+startDate = LocalDate.of(
+2001,
+Month.JANUARY,
+12
+) // 7731 days of service
+),
+Employee(
+firstName = &amp;quot;Peter&amp;quot;,
+lastName = &amp;quot;Gibbons&amp;quot;,
+jobTitle = JobTitle.MANAGER,
+startDate = LocalDate.of(
+1995,
+Month.SEPTEMBER,
+15
+) // 9677 days of service
+),
+Employee(
+firstName = &amp;quot;Michael&amp;quot;,
+lastName = &amp;quot;Bolton&amp;quot;,
+jobTitle = JobTitle.WEB_DEVELOPER,
+startDate = LocalDate.of(
+1999,
+Month.FEBRUARY,
+19
+), // 8424 days of service
+separationDate = LocalDate.of(
+2022,
+Month.JANUARY,
+15
+)
+),
+Employee(
+firstName = &amp;quot;Samir&amp;quot;,
+lastName = &amp;quot;Nagheenanajar&amp;quot;,
+jobTitle = JobTitle.WEB_DEVELOPER,
+startDate = LocalDate.of(
+1999,
+Month.FEBRUARY,
+19
+), // 8424 days of service
+separationDate = LocalDate.of(
+2022,
+Month.JANUARY,
+15
+)
+),
+Employee(
+firstName = &amp;quot;Bill&amp;quot;,
+lastName = &amp;quot;Lumbergh&amp;quot;,
+jobTitle = JobTitle.DISTRICT_MANAGER,
+startDate = LocalDate.of(
+1975,
+Month.APRIL,
+4
+) // 17146 days of service
+)
+)
+&lt;/code>&lt;/pre>
+&lt;h2 id="tests">Tests&lt;/h2>
+&lt;pre>&lt;code class="language-kotlin">package dev.atomicrepos.kotlin.mfr
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+import java.time.LocalDate
+import java.time.Month
+class MapFilterReduceTest {
+@Test
+fun canFindByLastNameLike() {
+assertThat(
+findByLastNameLike(&amp;quot;Na&amp;quot;)
+.firstOrNull()
+?.lastName
+).isEqualTo(&amp;quot;Nagheenanajar&amp;quot;)
+}
+@Test
+fun missingLastNameMatchReturnsNull() {
+assertThat(
+findByLastNameLike(&amp;quot;Waddams&amp;quot;)
+.firstOrNull()
+).isNull()
+}
+@Test
+fun canFindByPosition() {
+assertThat(
+findByPosition(JobTitle.WEB_DEVELOPER)
+.firstOrNull()
+?.lastName
+).isEqualTo(&amp;quot;Bolton&amp;quot;)
+}
+@Test
+fun canFindEmployeesTerminatedSince() {
+assertThat(
+findTerminatedSince(LocalDate.of(2022, Month.JANUARY, 1))
+).size().isEqualTo(2)
+}
+@Test
+fun canGetAverageServiceTime() {
+assertThat(getAverageServiceTime()).isEqualTo(10280.4)
+}
+@Test
+fun canGetAverageServiceTimeByJobTitle() {
+assertThat(getAverageServiceTimeByJobTitle(JobTitle.WEB_DEVELOPER)).isEqualTo(8424.0)
+}
+}
+&lt;/code>&lt;/pre></description></item><item><title>Hello, World!</title><link>https://atomicrepos.dev/repos/hello-world-kotlin/</link><pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/hello-world-kotlin/</guid><description>&lt;p>What would normally be in your &lt;code>README.md&lt;/code> would go here.&lt;/p>
 &lt;pre>&lt;code class="language-kotlin">package dev.atomicrepos.kotlin.hello
 fun main(args: Array&amp;lt;String&amp;gt;) {
 println(&amp;quot;Hello, World&amp;quot;)
