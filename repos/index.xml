@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Repos | Atomic Repos</title><link>https://atomicrepos.dev/repos/</link><atom:link href="https://atomicrepos.dev/repos/index.xml" rel="self" type="application/rss+xml"/><description>Repos</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 14 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>Repos</title><link>https://atomicrepos.dev/repos/</link></image><item><title>Map/Filter/Reduce Kotlin</title><link>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</link><pubDate>Mon, 14 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</guid><description>&lt;p>Today we&amp;rsquo;re going to look at how Kotin allows you to easily filter and aggregate a data set using
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Repos | Atomic Repos</title><link>https://atomicrepos.dev/repos/</link><atom:link href="https://atomicrepos.dev/repos/index.xml" rel="self" type="application/rss+xml"/><description>Repos</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 15 Mar 2022 00:00:00 +0000</lastBuildDate><image><url>https://atomicrepos.dev/media/icon_hud0664d97edae6bbdbabef1d7c1dd89aa_83464_512x512_fill_lanczos_center_3.png</url><title>Repos</title><link>https://atomicrepos.dev/repos/</link></image><item><title>Project Euler #1 - Multiples of 3 or 5 - Kotlin</title><link>https://atomicrepos.dev/repos/project-euler-1-kotlin/</link><pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/project-euler-1-kotlin/</guid><description>&lt;p>Today I&amp;rsquo;d like to introduce you to one of my favorite sources
+of programming problems: &lt;a href="https://projecteuler.net" target="_blank" rel="noopener">Project Euler&lt;/a>.&lt;/p>
+&lt;p>Project Euler is composed of a large set
+of problems (779 as of this writing) that will challenge both your mathematical and
+programming skills. The motivation is to provide a fun and
+recreational learning platform for students and professionals
+interested in math and/or computer science.&lt;/p>
+&lt;h2 id="what-i-like-best-about-project-eulers-problems-is-that-they-stretch-each-programming-language-in-very-different-ways">What I like best about Project Euler&amp;rsquo;s problems is that they stretch each programming language in very different ways.&lt;/h2>
+&lt;p>For the polyglot programmer, Project Euler provides great
+fodder for exploring the capabilities of multiple languages.
+Often one programming language&amp;rsquo;s features or libraries
+provide it with a competitive advantage, allowing it to solve
+certain Project Euler problems more efficiently or elegantly.
+This is especially true of languages with a strong functional
+bent.&lt;/p>
+&lt;h2 id="heres-our-problem-statement-for-today">Here&amp;rsquo;s our problem statement for today:&lt;/h2>
+&lt;blockquote>
+&lt;p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="kotlin-provides-a-powerful-feature-for-attacking-this-problem-lazy-sequences">Kotlin provides a powerful feature for attacking this problem: Lazy Sequences&lt;/h2>
+&lt;p>What&amp;rsquo;s cool about a lazy sequence? It can be infinitely long!
+This allows us to describe infinite sequences like
+&lt;em>the set of all natural numbers&lt;/em> in a single line of code, and
+we never encounter a stack overflow! We can do this because lazy
+sequences are not evaluated until we ask for the result of
+a multi-step process.&lt;/p>
+&lt;p>So in today&amp;rsquo;s solution, we take each factor and:&lt;/p>
+&lt;ol>
+&lt;li>Multiply it by every number in our logically-infinite sequence of natural numbers. At this point we haven&amp;rsquo;t evaluated anything.&lt;/li>
+&lt;li>Take all numbers from the sequence that are less than our upper bound of 1000. At this point, because we&amp;rsquo;ve established a concrete upper bound, Kotlin evaluates and returns a finite sequence of numbers.&lt;/li>
+&lt;li>Because we now have a sequence of sequences, we combine them into one using &lt;code>flatten&lt;/code>.&lt;/li>
+&lt;li>We remove duplicates using &lt;code>distinct&lt;/code>.&lt;/li>
+&lt;li>And finally we take the &lt;code>sum&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;p>Running our program tells us the answer: &lt;code>233168&lt;/code>.&lt;/p>
+&lt;p>To learn more about Kotlin Sequences, take a look at &lt;a href="https://kotlinlang.org/docs/sequences.html" target="_blank" rel="noopener">Sequences&lt;/a> in the Kotlin documentation.&lt;/p>
+&lt;hr>
+&lt;h2 id="code">Code&lt;/h2>
+&lt;pre>&lt;code class="language-kotlin">package dev.atomicrepos.kotlin.projecteuler
+val naturalNumbers = generateSequence(1) { it + 1}
+fun sumOfMultiples(upperBound: Int, vararg factors: Int) =
+factors
+.asSequence()
+.map { factor -&amp;gt;
+naturalNumbers
+.map { it * factor }
+.takeWhile { it &amp;lt; upperBound }
+}
+.flatten()
+.distinct()
+.sum()
+&lt;/code>&lt;/pre>
+&lt;h2 id="tests">Tests&lt;/h2>
+&lt;pre>&lt;code class="language-kotlin">package dev.atomicrepos.kotlin.projecteuler
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+class ProjectEulerOneTest {
+@Test
+fun shouldCalculateSumOfMultiples() {
+assertThat(sumOfMultiples(1000, 3, 5)).isEqualTo(233168)
+}
+}
+&lt;/code>&lt;/pre></description></item><item><title>Map/Filter/Reduce Kotlin</title><link>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</link><pubDate>Mon, 14 Mar 2022 00:00:00 +0000</pubDate><guid>https://atomicrepos.dev/repos/map-filter-reduce-kotlin/</guid><description>&lt;p>Today we&amp;rsquo;re going to look at how Kotin allows you to easily filter and aggregate a data set using
 higher-order functions like &lt;code>map&lt;/code>, &lt;code>filter&lt;/code>, and &lt;code>reduce&lt;/code>.&lt;/p>
 &lt;p>(&lt;em>While Kotlin does have a &lt;code>reduce&lt;/code> function, we&amp;rsquo;ll go ahead and use Kotlin&amp;rsquo;s &lt;code>average&lt;/code> function since we&amp;rsquo;re taking an average in this example.&lt;/em>)&lt;/p>
 &lt;p>This example was inspired by Exercise 40 from &lt;em>Exercises for Programmers: 57 Challenges to Develop Your Coding Skills.&lt;/em> by Brian P. Hogan.
